@@ -3,13 +3,22 @@ import styles from "../styles/Home.module.css";
 
 import Banner from "../compo/banner";
 import Card from "../compo/card";
-import Louiscoffee from "../data/louis-coffee.json";
+import LouisStoreData from "../data/louis-coffee.json";
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      LouisStore: LouisStoreData,
+    }, // will be passed to the page component as props
+  };
+}
 
 const handlebanner = () => {
   console.log("banner clicked");
 };
 
-export default function Home() {
+export default function Home(props) {
+  console.log("prop", props);
   return (
     <div className={styles.container}>
       <Head>
@@ -22,17 +31,23 @@ export default function Home() {
         <div className={styles.heroImage}>
           <img src="/static/hero-image.png" width={700} height={400} />
         </div>
-        <div className={styles.cardLayout}>
-          {Louiscoffee.map((Louiscoffe) => {
-            return (
-              <Card
-                name={Louiscoffe.name}
-                imgUrl={Louiscoffe.imgUrl}
-                href={`/louis-store/${Louiscoffe.id}`}
-              />
-            );
-          })}
-        </div>
+        {props.LouisStore.length > 0 && (
+          <div>
+            <h2 className={styles.heading2}> Manila stores</h2>
+            <div className={styles.cardLayout}>
+              {props.LouisStore.map((Louiscoffe) => {
+                return (
+                  <Card
+                    key={Louiscoffe.id}
+                    name={Louiscoffe.name}
+                    imgUrl={Louiscoffe.imgUrl}
+                    href={`/louis-store/${Louiscoffe.id}`}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
