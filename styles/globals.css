@@ -61,6 +61,7 @@ button:focus {
   background: hsla(0, 0%, 100%, 0.7);
   border: 1px solid #fff;
 }
+
 :root {
   --text-black: #000000;
   --text-purple: #7f00ff;

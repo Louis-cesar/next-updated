@@ -6,6 +6,20 @@ import Card from "../compo/card";
 import LouisStoreData from "../data/louis-coffee.json";
 
 export async function getStaticProps(context) {
+  const APIKEY = "<fsq3YrxzK5qYMzcyF2wtNIsvxC8UsLfLpN4nZQ/V2gc5izM=>";
+
+  const options = {
+    method: "GET",
+    headers: { Accept: "application/json", Authorization: APIKEY },
+  };
+
+  fetch(
+    "https://api.foursquare.com/v3/places/nearby?ll=14.327915370461799%2C%20120.94288126172168",
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
   return {
     props: {
       LouisStore: LouisStoreData,
